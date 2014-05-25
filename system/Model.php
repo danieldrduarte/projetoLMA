@@ -4,15 +4,15 @@ class Model{
 	
     private $link;
     
-    //Local
+    //Informações Locais
 //     private $host 	  = '127.0.0.1';
 //     private $port 	  = '5433';
 //     private $dbname   = 'projeto';
 //     private $user 	  = 'postgres';
 //     private $password = 'pg01';
 
-    //Produção
-    private $host 	  = 'ec2-184-73-251-115.compute-1.amazonaws.com';
+    //Informações Produção
+    private $host 	  = 'ec2-184-73-251-115.compute-1.amazonaws.com'; 
     private $port 	  = '5432';
     private $dbname   = 'd357rgo34icju';
     private $user 	  = 'talqcoemqgwnke';
