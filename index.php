@@ -3,7 +3,7 @@
     define( 'CONTROLLERS','app/controllers/' );
     define( 'VIEWS','app/views/' );
     define( 'MODELS','app/models/' );
-    define( 'IMAGENS','public/imagens/' );
+    define( 'IMAGENS','/public/imagens/' );
     define( 'd','die' );
 
     //carregando arquivos básicos
