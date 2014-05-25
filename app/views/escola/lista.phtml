@@ -1,0 +1,41 @@
+<div align="center">
+	<br>
+	<table border="1" style="width:80%;" cellpadding="3" cellspacing="1">
+		<tr>
+			<td width="5%"  align="center"><b>Ação</b></td>
+			<td width="10%" align="center"><b>Código</b></td>
+			<td width="55%" align="center"><b>Nome</b></td>
+			<td width="15%" align="center"><b>Rede</b></td>
+			<td width="15%" align="center"><b>Dependência</b></td>
+		</tr>
+		<?php 
+			if( is_array($vars['dadosEscolas']) && count($vars['dadosEscolas']) > 0 ): 
+				foreach ($vars['dadosEscolas'] AS $dadosEscola):
+		?>
+					<tr>
+						<td align="center">
+							<img border="0px" onclick="visualizaEscola('<?= $dadosEscola['cod_escola']; ?>');" style="width:20px; height: 20px; cursor:pointer;" title="Visualizar dados da escola"  alt="Visualizar dados da escola" src="<?= IMAGENS; ?>iconelupa2.png">
+						</td>
+						<td align="center"><?= $dadosEscola['cod_escola']; ?></td>
+						<td><?= $dadosEscola['nom_escola']; ?></td>
+						<td align="center"><?= $dadosEscola['nom_rede']; ?></td>
+						<td><?= $dadosEscola['nom_dependencia']; ?></td>
+					</tr>
+			<?php endforeach; ?>
+					<tr>
+						<td colspan="5"><b>Total de registros: <?= count($vars['dadosEscolas']); ?></b></td>
+					</tr>	
+		<?php else: ?>
+			<tr>
+				<td colspan="5" align="center"><b>Nenhuma escola encontrada</b></td>
+			</tr>
+		<?php endif; ?>
+	</table>
+	<br>
+</div>
+
+<script type="text/javascript">
+	function visualizaEscola(cod_escola){
+		alert('Código da escola: ' + cod_escola);
+	}
+</script>

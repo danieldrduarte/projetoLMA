@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
+ <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <head>
+    	<style type="text/css">
+    	</style>
+    </head>
+    <body>
+		<div id="geral">
+		    <div id="cabecalho">
+		    	<div style="display:inline-block;">
+		            <img src="<?= IMAGENS; ?>escola1.png" style="width: 103px; height: 90px; float:left;">
+		            <div style="width:475px; height: 80px; float:left; margin-left: 10px; margin-top: 0px;">
+			            <span style="font-size: 40px;"><b>InfoEscola</b></span><br>
+			            <span style="font-size: 20px;"><b>Sistema de Consulta de informações das Escolas</b></span>
+		            </div>
+			        <div id="menu-principal"> &nbsp;<a href="/projeto">Home</a> -  <a href="/projeto/escola/lista">Lista de Escolas</a> - <a href="/projeto/mapa/mapa">Lista 2</a> - <a href="/mapa/mapa">teste</a></div>
+		    	</div>
+		        <hr>
+		    </div>
+		    <div id="conteudo" style="min-height: 75%;">
+		        <div id="conteudo-principal" style="width: 100%;">
+		            <?php 
+			            if ( !file_exists($_caminho_view) ){
+			            	echo "<h3 align='center'>Houve um erro. View nao existe.</h3>";
+			            }else{
+			            	require_once( $_caminho_view );
+						}
+		            ?>	        
+		        </div>
+		    </div>
+		    <div id="rodape">
+		    	<hr style="margin-bottom: 0px;">
+		     	<div style="margin-top:0px; margin-bottom: 0px; text-align: center; font-size: 10px;"><b>Copyright © 2014 - Daniel Duarte - All rights reserved.</b></div>
+		    </div>
+		</div>        
+    </body>
+</html>
