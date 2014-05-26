@@ -1,25 +1,76 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
  <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <head>
-    	<style type="text/css">
-    	</style>
+		<link href="../../../public/css/datagrid/examples-offline.css" rel="stylesheet">
+		<link href="../../../public/css/datagrid/kendo.common.min.css" rel="stylesheet">
+		<link href="../../../public/css/datagrid/kendo.rtl.min.css" rel="stylesheet">
+		<link href="../../../public/css/datagrid/kendo.default.min.css" rel="stylesheet">
+		
+		<script src="../../../public/javascript/datagrid/jquery.min.js"></script>
+		<script src="../../../public/javascript/datagrid/kendo.web.min.js"></script>
+		<script src="../../../public/javascript/datagrid/console.js"></script>        
+		<script src="../../../public/javascript/datagrid/products.js"></script> 
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="../../public/css/bootstrap-3.1.1/css/bootstrap.min.css">
+		
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="../../public/css/bootstrap-3.1.1/css/bootstrap-theme.min.css">
+		
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="../../public/css/bootstrap-3.1.1/js/bootstrap.min.js"></script>
     </head>
     <body>
 		<div id="geral">
 		    <div id="cabecalho">
 		    	<div style="display:inline-block;">
-		            <img src="<?= IMAGENS; ?>escola1.png" style="width: 103px; height: 90px; float:left;">
-		            <div style="width:475px; height: 80px; float:left; margin-left: 10px; margin-top: 0px;">
+		            <img src="<?= IMAGENS; ?>Fundacao-Universa.png" style=" margin-top:15px; width: 176px; height: 40px; float:left;">
+		            <div style="height: 80px; float:left; margin-left: 10px; margin-top: 0px;">
 			            <span style="font-size: 40px;"><b>InfoEscola</b></span><br>
 			            <span style="font-size: 20px;"><b>Sistema de Consulta de informações das Escolas</b></span>
 		            </div>
-			        <div id="menu-principal"> &nbsp;
-			       		<a href="/index/index">Home</a> -  
-			       		<a href="/escola/lista">Lista de Escolas 001</a> - 
-			       		<a href="/mapa/mapa">Lista de Escolas 002</a> </div>
 		    	</div>
-		        <hr>
 		    </div>
+			<nav class="navbar navbar-default" role="navigation" style="margin-top: 15px;">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			        <span class="sr-only">Menu</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">Menu</a>
+			    </div>
+			
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav">
+			        <li><a href="/index/index">Home</a></li>
+			        <li><a href="/escola/lista">Lista de Escolas</a></li>
+			        <li><a href="/mapa/mapa">Mapa de Escolas</a></li>
+			      </ul>
+			      <ul class="nav navbar-nav navbar-right">
+			      <form class="navbar-form navbar-left" role="search">
+			        <div class="form-group">
+			          <input type="text" class="form-control" placeholder="Pesquisar">
+			        </div>
+			        <button type="submit" class="btn btn-default">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;</button>
+			      </form>
+			      <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Informações <b class="caret"></b></a>
+			          <ul class="dropdown-menu">
+			            <li><a href="/info/trabalho">Informações sobre o trabalho</a></li>
+			            <li><a href="/info/autor">Informações sobre o autor</a></li>
+			            <li class="divider"></li>
+			            <li><a href="/info/arquivos">Arquivos</a></li>
+			          </ul>
+			        </li>
+			      </ul>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>	
 		    <div id="conteudo" style="min-height: 75%;">
 		        <div id="conteudo-principal" style="width: 100%;">
 		            <?php 
@@ -31,10 +82,11 @@
 		            ?>	        
 		        </div>
 		    </div>
-		    <div id="rodape">
-		    	<hr style="margin-bottom: 0px;">
-		     	<div style="margin-top:0px; margin-bottom: 0px; text-align: center; font-size: 10px;"><b>Copyright © 2014 - Daniel Duarte - All rights reserved.</b></div>
-		    </div>
+		    <nav id="rodape" class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+			  <div class="container">
+		     	<div style="margin-top:15px; text-align: center; font-size: 10px;"><b>Copyright © 2014 - Daniel Duarte - All rights reserved.</b></div>
+			  </div>
+			</nav>
 		</div>        
     </body>
 </html>
