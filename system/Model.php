@@ -4,19 +4,19 @@ class Model{
 	
     private $link;
     
-    //Informa��es Locais
-    private $host 	  = '127.0.0.1';
-    private $port 	  = '5433';
-    private $dbname   = 'projeto';
-    private $user 	  = 'postgres';
-    private $password = 'pg01';
+    //Informações Locais
+//     private $host 	  = '127.0.0.1';
+//     private $port 	  = '5433';
+//     private $dbname   = 'projeto';
+//     private $user 	  = 'postgres';
+//     private $password = 'pg01';
 
-    //Informa��es Produ��o
-//     private $host 	  = 'ec2-184-73-251-115.compute-1.amazonaws.com'; 
-//     private $port 	  = '5432';
-//     private $dbname   = 'd357rgo34icju';
-//     private $user 	  = 'talqcoemqgwnke';
-//     private $password = '9hJZgxtkE5tWZN7YogNndzgOC2';
+    //Informações de produção
+    private $host 	  = 'ec2-184-73-251-115.compute-1.amazonaws.com'; 
+    private $port 	  = '5432';
+    private $dbname   = 'd357rgo34icju';
+    private $user 	  = 'talqcoemqgwnke';
+    private $password = '9hJZgxtkE5tWZN7YogNndzgOC2';
 
     function __construct(){
     	if(!isset($this->link) ){
