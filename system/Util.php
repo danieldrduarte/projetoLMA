@@ -32,8 +32,27 @@ class Util{
 	   echo '</div></pre></div>';
 	
 	
-	   // Verifica se é para dar o die no final
+	   // Verifica se Ã© para dar o die no final
 	   if( $parar ){ die; }
+	}
+	
+	public static function combo($id,$dados = array(), $habilitado = true, $texto = "", $acao = ""){
+		
+		$habilitado = $habilitado   ? '' : " disabled='disabled' ";
+		$acao       = !empty($acao) ? " onchange='$acao' " : "";
+		
+		$str = "<select id='{$id}' name='{$id}' {$habilitado} {$acao} class='form-control'>
+			  		<option value>{$texto}</option>";
+		
+		if(is_array($dados) && count($dados) > 0){
+			foreach ($dados AS $dado){
+				$str .= "<option value='{$dado["codigo"]}'>{$dado["descricao"]}</option>";
+			}
+		}
+		
+		$str .= "</select>";
+		
+		return $str;
 	}
 
 }
