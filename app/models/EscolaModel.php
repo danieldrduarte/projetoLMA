@@ -8,10 +8,14 @@ class EscolaModel extends Model{
     
 	public function getListaEscolas($where = array()){
 		
+		$where[] = " 1 = 1 ";
+		
 		$sql = "SELECT 
 					* 
 				FROM 
-					escola.vw_lista_escolas";
+					escola.vw_lista_escolas
+				WHERE
+					" . implode(" AND ", $where) .";";
 		
 		return ($this->carregar($sql));
 	}

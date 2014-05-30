@@ -2,7 +2,10 @@
     class Escola extends Controller{
     	
         public function ListaAction(){
-        	
+        	$pesquisa = $_POST;
+        
+        	//Util::ver($pesquisa);	
+        
         	$mRede 		= new RedeModel();
         	$dadosRede	= $mRede->getCombo(array());
         	
@@ -25,7 +28,42 @@
         
         public function carregaEscolasAction(){
         	$modelo  = new EscolaModel();
-        	$retorno = $modelo->getListaEscolas();
+        	$dados 	 = $_POST;
+        	$where   = array();
+        	
+        	if(!empty($dados['cod_escola'])){
+        		$where[] = " cod_escola ILIKE '%{$dados['cod_escola']}%' ";
+        	}
+        	
+        	if(!empty($dados['nom_escola'])){
+        		$where[] = " nom_escola ILIKE '%{$dados['nom_escola']}%' ";
+        	}
+        	
+        	if(!empty($dados['cod_rede'])){
+        		$where[] = " cod_rede = '{$dados['cod_rede']}' ";
+        	}
+        	
+        	if(!empty($dados['cod_dependencia'])){
+        		$where[] = " cod_dependencia = '{$dados['cod_dependencia']}' ";
+        	}
+        	
+        	if(!empty($dados['cod_regiao'])){
+        		$where[] = " cod_regiao = {$dados['cod_regiao']} ";
+        	}
+        	
+        	if(!empty($dados['cod_estado'])){
+        		$where[] = " cod_estado = {$dados['cod_estado']} ";
+        	}
+        	
+        	if(!empty($dados['cod_municipio'])){
+        		$where[] = " cod_municipio = '{$dados['cod_municipio']}' ";
+        	}
+        	
+        	if(!empty($dados['cod_cat_dependencia'])){
+        		$where[] = " cod_cat_dependencia = {$dados['cod_cat_dependencia']} ";
+        	}
+        	
+        	$retorno = $modelo->getListaEscolas($where);
         	die(json_encode($retorno));
         }
         

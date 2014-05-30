@@ -58,90 +58,146 @@
 			  	</div> 
 			  	<div id="divfiltros" class="panel-body" style="display: none;" align="center">
 			  		<!-- INICIO -Formulário de pesquisa -->
-					<div style="width: 99%;" align="left">
-						<div class="row">
-							<div class="col-xs-3">
-						  		<label for="cod_escola">Código da Escola</label>
-						    	<input type="text" id="cod_escola" name="cod_escola" class="form-control" placeholder="Código da Escola">
+			  		<form action="/escola/lista">
+						<div style="width: 99%;" align="left">
+							<div class="row">
+								<div class="col-xs-3">
+							  		<label for="cod_escola">Código da Escola</label>
+							    	<input type="text" id="cod_escola" name="cod_escola" class="form-control" placeholder="Código da Escola">
+								</div>
+								<div class="col-xs-3">
+							  		<label for="nom_escola">Nome da Escola</label>
+							    	<input type="text" id="nom_escola" name="nom_escola" class="form-control" placeholder="Nome da Escola">
+								</div>
+								<div class="col-xs-3">
+							  		<label for="cod_rede">Rede</label>
+							  		<?php
+							  			echo Util::combo('cod_rede', $vars['dadosRede'], true, "Selecione..."); 
+							  		?>
+								</div>
+							  	<div class="col-xs-3">
+							  		<label for="cod_dependencia">Dependência</label>
+							  		<?php
+							  			echo Util::combo('cod_dependencia', $vars['dadosDependencia'], true, "Selecione..."); 
+							  		?>
+								</div>
 							</div>
-							<div class="col-xs-3">
-						  		<label for="nom_escola">Nome da Escola</label>
-						    	<input type="text" id="nom_escola" name="nom_escola" class="form-control" placeholder="Nome da Escola">
+							<div class="row">
+								<div class="col-xs-3">
+							  		<label for="cod_regiao">Região</label>
+							  		<?php
+							  			echo Util::combo('cod_regiao', $vars['dadosRegiao'], true, "Selecione...", "carregaEstados(this);"); 
+							  		?>
+								</div>
+								<div class="col-xs-3">
+							  		<label for="cod_estado">Estado</label>
+							  		<div id="divestados">
+							  		<?php
+							  			echo Util::combo('cod_estado', array(), false, "Selecione uma Região", ""); 
+							  		?>
+							  		</div>
+								</div>
+								<div class="col-xs-3">
+							  		<label for="cod_municipio">Município</label>
+							  		<div id="divmunicipios">
+							  		<?php
+							  			echo Util::combo('cod_municipio', array(), false, "Selecione um Estado", ""); 
+							  		?>
+							  		</div>
+								</div>
+							  	<div class="col-xs-3">
+							  		<label for="cod_cat_dependencia">Categoria</label>
+							  		<?php
+							  			echo Util::combo('cod_cat_dependencia', $vars['dadosCategoria'], true, "Selecione..."); 
+							  		?>
+								</div>
 							</div>
-							<div class="col-xs-3">
-						  		<label for="cod_rede">Rede</label>
-						  		<?php
-						  			echo Util::combo('cod_rede', $vars['dadosRede'], true, "Selecione..."); 
-						  		?>
-							</div>
-						  	<div class="col-xs-3">
-						  		<label for="cod_dependencia">Dependência</label>
-						  		<?php
-						  			echo Util::combo('cod_dependencia', $vars['dadosDependencia'], true, "Selecione..."); 
-						  		?>
-							</div>
+							<br>
+							<button type="button" onclick="filtraGrid()" class="btn btn-default">Filtrar</button>
+							<button type="button" onclick="limpar()" class="btn btn-default">Limpar</button>
 						</div>
-						<div class="row">
-							<div class="col-xs-3">
-						  		<label for="cod_regiao">Região</label>
-						  		<?php
-						  			echo Util::combo('cod_regiao', $vars['dadosRegiao'], true, "Selecione...", "carregaEstados(this);"); 
-						  		?>
-							</div>
-							<div class="col-xs-3">
-						  		<label for="cod_estado">Estado</label>
-						  		<div id="divestados">
-						  		<?php
-						  			echo Util::combo('cod_estado', array(), false, "Selecione uma Região", ""); 
-						  		?>
-						  		</div>
-							</div>
-							<div class="col-xs-3">
-						  		<label for="cod_municipio">Município</label>
-						  		<div id="divmunicipios">
-						  		<?php
-						  			echo Util::combo('cod_municipio', array(), false, "Selecione um Estado", ""); 
-						  		?>
-						  		</div>
-							</div>
-						  	<div class="col-xs-3">
-						  		<label for="cod_cat_dependencia">Categoria</label>
-						  		<?php
-						  			echo Util::combo('cod_cat_dependencia', $vars['dadosCategoria'], true, "Selecione..."); 
-						  		?>
-							</div>
-						</div>
-						<br>
-						<button type="button" class="btn btn-default">Filtrar</button>
-						<button type="button" class="btn btn-default">Limpar</button>
-					</div>
+					</form>
 					<!-- FIM - Formulário de pesquisa -->
 				</div>
 			</div>
 			
 			<!-- Grid de escolas -->
-			<div id="grid" style="font-size: 11px; width: 99%; ">
 				<div id="carregandoLista" style="height:470px;"> <img style="border:0px;" src="<?= IMAGENS; ?>carregando.gif"></div>
-			</div>
+			<div id="grid" style="font-size: 11px; width: 99%; "></div>
+			<div id="semEscolas" style="font-size: 11px; width: 99%; "><strong style='font-size:20px;'>Nenhuma escola encontrada</strong></div>
 		</div>
 	</div>
 </div>       
 
 <script>
     $(document).ready(function() {
+		$('#carregandoLista').show();
+		$('#grid').hide();
+		$('#semEscolas').hide();
+		 
+    	filtraGrid();
+    });
+
+    function limpar(){
+    	$("#cod_escola").val('');          
+    	$("#nom_escola").val('');          
+    	$("#cod_rede").val('');            
+    	$("#cod_dependencia").val('');     
+    	$("#cod_regiao").val('');          
+    	$("#cod_estado").val('');          
+    	$("#cod_municipio").val('');       
+    	$("#cod_cat_dependencia").val(''); 
+
+    	carregaEstados('');
+    	filtraGrid();
+    }
+    
+    function filtraGrid(){
+		$('#carregandoLista').show();
+		$('#grid').hide();
+		$('#semEscolas').hide();
+		
+        var cod_escola 			= $("#cod_escola").val();
+        var nom_escola 			= $("#nom_escola").val();
+        var cod_rede   			= $("#cod_rede").val();
+        var cod_dependencia   	= $("#cod_dependencia").val();
+        var cod_regiao   		= $("#cod_regiao").val();
+        var cod_estado   		= $("#cod_estado").val();
+        var cod_municipio   	= $("#cod_municipio").val();
+        var cod_cat_dependencia	= $("#cod_cat_dependencia").val();
+        
 		$.ajax({
 			type    : "POST",
 			async   : true,
 			dataType: "json",
-			url     : '/escola/carregaEscolas'})
+			url     : '/escola/carregaEscolas',
+			data	: { "cod_escola" 			: cod_escola,
+						"nom_escola" 			: nom_escola,
+						"cod_rede"	 			: cod_rede,
+						"cod_dependencia"		: cod_dependencia,
+						"cod_regiao"			: cod_regiao,
+						"cod_estado" 			: cod_estado,
+						"cod_municipio" 		: cod_municipio,
+						"cod_cat_dependencia"	: cod_cat_dependencia} })
 		 .done(function(result){
 			 $('#carregandoLista').hide();
+			 $('#grid').show();
+			 $('#semEscolas').hide();
 			 exibeGrid(result);
 		 });
-        
-    });
+    }
 
     function exibeGrid(escolas){
+        $('#grid').html('');
+        
+        if(!escolas){
+	        $('#grid').html('');
+	        $('#grid').hide();
+	        $('#carregandoLista').hide();
+	        $('#semEscolas').show();
+	        return false;
+        }
+        
     	$("#grid").kendoGrid({
             dataSource: {
                 data: escolas,
@@ -189,7 +245,10 @@
     }    
 
     function carregaEstados(regiao){
-        var cod_regiao = regiao.value;
+    	var cod_regiao = '';
+        if(regiao){
+	    	cod_regiao = regiao.value;
+        }
         $('#divestados').load( "/estado/carregaEstados/cod_regiao/" + cod_regiao );
 
         if(cod_regiao == ''){
