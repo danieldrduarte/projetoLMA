@@ -5,12 +5,16 @@
   	</div>
   	<div class="panel-body">
 		<ul id="myTab" class="nav nav-tabs">
-		   <li><a href="/escola/lista" > Lista de Escolas </a></li>
-		   <li class="active"><a href="#home" onclick="alteraAba('principal');" data-toggle="tab"> Informações Principais</a></li>
-		   <li><a href="#ios" onclick="alteraAba('endereco');" data-toggle="tab">Endereço</a></li>
+		   <li><a href="/escola/lista" style="color:#555555;"> <strong>Lista de Escolas</strong></a></li>
+		   <li class="active"><a href="#home" onclick="alteraAba('principal');" style="color:#555555;" data-toggle="tab"><strong>Informações Principais</strong></a></li>
+		   <li><a href="#ios" onclick="alteraAba('endereco');" data-toggle="tab"><strong style="color:#555555;">Endereço</strong></a></li>
 		</ul>  	
 		<div id="div-conteudo-aba" align="center" style="border-left: 1px solid #DDDDDD; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD;">
 			<?php echo $vars['dadostela']; ?> 
+		</div>
+		<br>
+		<div align="center">
+			<button type="button" onclick="window.location='/escola/lista'" class="btn btn-default">Voltar</button>
 		</div>
   	</div>
 </div>
