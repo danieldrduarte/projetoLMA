@@ -5,7 +5,7 @@
     define( 'MODELS','app/models/' );
     define( 'IMAGENS','/public/imagens/' );
     define( 'd','die' );
-
+    
     //carregando arquivos básicos
     require_once('system/System.php');
     require_once('system/Controller.php');

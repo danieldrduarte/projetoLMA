@@ -54,7 +54,7 @@
                 $ind = array();
                 $value = array();
             }
-            if( count($ind) == count($value) && !empty($ind) && !empty($value) )
+            if( isset($value) && count($ind) == count($value) && !empty($ind) && !empty($value) )
                 $this->_params = array_combine($ind, $value);
             else
                 $this->_params = array();
@@ -62,7 +62,10 @@
 
         public function getParam( $name = null ){
             if ( $name != null )
-                return $this->_params[$name];
+            	if(isset($this->_params[$name]))
+                	return $this->_params[$name];
+            	else 
+            		return null;
             else
                 return $this->_params;
         }

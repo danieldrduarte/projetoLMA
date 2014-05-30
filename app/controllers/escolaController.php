@@ -28,4 +28,36 @@
         	$retorno = $modelo->getListaEscolas();
         	die(json_encode($retorno));
         }
+        
+        public function detalhaAction(){
+        	$cod_escola 	= $this->getParam('cod_escola');
+        	$tipo 			= $this->getParam('tipo');
+
+        	$dadosCategoria = $this->montaGridInformacoes($cod_escola, $tipo);
+        	
+        	$arDados = array('cod_escola'	=> $cod_escola,
+        			         'dadostela'	=> $dadosCategoria );
+        	
+        	$this->view('escola/detalha', $arDados);
+        }
+        
+        private function montaGridInformacoes($cod_escola,$tipo = null){
+        	$escola      = new EscolaModel();
+        	$dadosEscola = $escola->getDadosEscola($cod_escola);
+        	
+        	if($tipo && $tipo == 'endereco'){
+        		$dados = $escola->montaGridEndereco($cod_escola);
+        		
+        	}elseif(!$tipo || $tipo == 'principal'){
+        		$dados = $escola->montaGridPrincipal($cod_escola);
+        	}
+        	
+        	//se tiver um tipo setado então é uma requisição ajax
+        	if($tipo){
+        		die ($dados);
+        	}else{
+        		return $dados;
+        	}
+        	
+        }
     }
