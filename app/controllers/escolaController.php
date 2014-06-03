@@ -2,7 +2,7 @@
     class Escola extends Controller{
     	
         public function ListaAction(){
-        	$pesquisa = $_POST;
+        	$pesquisa = $_POST['pesquisaGeral'];
         
         	$mRede 		= new RedeModel();
         	$dadosRede	= $mRede->getCombo(array());
@@ -19,7 +19,8 @@
         	$arDados = array('dadosRede'		=> $dadosRede,
         					 'dadosDependencia'	=> $dadosDependencia,
         					 'dadosRegiao'		=> $dadosRegiao,
-        					 'dadosCategoria'	=> $dadosCategoria );
+        					 'dadosCategoria'	=> $dadosCategoria,
+        					 'pesquisa'			=> $pesquisa );
         	
         	$this->view('escola/lista', $arDados);
         }
@@ -29,36 +30,48 @@
         	$dados 	 = $_POST;
         	$where   = array();
         	
-        	if(!empty($dados['cod_escola'])){
-        		$where[] = " cod_escola ILIKE '%{$dados['cod_escola']}%' ";
-        	}
-        	
-        	if(!empty($dados['nom_escola'])){
-        		$where[] = " nom_escola ILIKE '%{$dados['nom_escola']}%' ";
-        	}
-        	
-        	if(!empty($dados['cod_rede'])){
-        		$where[] = " cod_rede = '{$dados['cod_rede']}' ";
-        	}
-        	
-        	if(!empty($dados['cod_dependencia'])){
-        		$where[] = " cod_dependencia = '{$dados['cod_dependencia']}' ";
-        	}
-        	
-        	if(!empty($dados['cod_regiao'])){
-        		$where[] = " cod_regiao = {$dados['cod_regiao']} ";
-        	}
-        	
-        	if(!empty($dados['cod_estado'])){
-        		$where[] = " cod_estado = {$dados['cod_estado']} ";
-        	}
-        	
-        	if(!empty($dados['cod_municipio'])){
-        		$where[] = " cod_municipio = '{$dados['cod_municipio']}' ";
-        	}
-        	
-        	if(!empty($dados['cod_cat_dependencia'])){
-        		$where[] = " cod_cat_dependencia = {$dados['cod_cat_dependencia']} ";
+        	if(!empty($dados['pesquisa'])){
+        		$where[] = "( cod_escola          ILIKE '%{$dados['pesquisa']}%' OR
+        					  nom_escola          ILIKE '%{$dados['pesquisa']}%' OR
+        		              nom_rede            ILIKE '%{$dados['pesquisa']}%' OR
+        		              nom_dependencia     ILIKE '%{$dados['pesquisa']}%' OR
+        		              nom_regiao          ILIKE '%{$dados['pesquisa']}%' OR
+        					  nom_estado          ILIKE '%{$dados['pesquisa']}%' OR
+        		              nom_municipio       ILIKE '%{$dados['pesquisa']}%' OR
+        		              nom_cat_dependencia ILIKE '%{$dados['pesquisa']}%' OR
+        		              nom_distrito        ILIKE '%{$dados['pesquisa']}%') ";
+        	}else{
+	        	if(!empty($dados['cod_escola'])){
+	        		$where[] = " cod_escola ILIKE '%{$dados['cod_escola']}%' ";
+	        	}
+	        	
+	        	if(!empty($dados['nom_escola'])){
+	        		$where[] = " nom_escola ILIKE '%{$dados['nom_escola']}%' ";
+	        	}
+	        	
+	        	if(!empty($dados['cod_rede'])){
+	        		$where[] = " cod_rede = '{$dados['cod_rede']}' ";
+	        	}
+	        	
+	        	if(!empty($dados['cod_dependencia'])){
+	        		$where[] = " cod_dependencia = '{$dados['cod_dependencia']}' ";
+	        	}
+	        	
+	        	if(!empty($dados['cod_regiao'])){
+	        		$where[] = " cod_regiao = {$dados['cod_regiao']} ";
+	        	}
+	        	
+	        	if(!empty($dados['cod_estado'])){
+	        		$where[] = " cod_estado = {$dados['cod_estado']} ";
+	        	}
+	        	
+	        	if(!empty($dados['cod_municipio'])){
+	        		$where[] = " cod_municipio = '{$dados['cod_municipio']}' ";
+	        	}
+	        	
+	        	if(!empty($dados['cod_cat_dependencia'])){
+	        		$where[] = " cod_cat_dependencia = {$dados['cod_cat_dependencia']} ";
+	        	}
         	}
         	
         	$retorno = $modelo->getListaEscolas($where);

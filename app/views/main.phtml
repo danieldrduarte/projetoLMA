@@ -46,11 +46,11 @@
 			        <li><a href="/mapa/mapa">Mapa de Escolas</a></li>
 			      </ul>
 			      <ul class="nav navbar-nav navbar-right">
-			      <form class="navbar-form navbar-left" role="search">
-			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Pesquisar Escolas">
-			        </div>
-			        <button type="submit" class="btn btn-default">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;</button>
+			      <form class="navbar-form navbar-left" role="search" method="post" action="/escola/lista">
+				        <div class="form-group">
+				          <input type="text" class="form-control" id="pesquisaGeral" name="pesquisaGeral" value="<?= $vars['pesquisa']; ?>" placeholder="Pesquisar Escolas">
+				        </div>
+				        <button type="submit" class="btn btn-default">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;</button>
 			      </form>
 			      </ul>
 			    </div><!-- /.navbar-collapse -->

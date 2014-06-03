@@ -165,6 +165,7 @@
         var cod_estado   		= $("#cod_estado").val();
         var cod_municipio   	= $("#cod_municipio").val();
         var cod_cat_dependencia	= $("#cod_cat_dependencia").val();
+        var pesquisa			= "<?= $vars['pesquisa']; ?>";
         
 		$.ajax({
 			type    : "POST",
@@ -178,7 +179,8 @@
 						"cod_regiao"			: cod_regiao,
 						"cod_estado" 			: cod_estado,
 						"cod_municipio" 		: cod_municipio,
-						"cod_cat_dependencia"	: cod_cat_dependencia} })
+						"cod_cat_dependencia"	: cod_cat_dependencia,
+						"pesquisa"				: pesquisa} })
 		 .done(function(result){
 			 $('#carregandoLista').hide();
 			 $('#grid').show();
