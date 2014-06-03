@@ -1,6 +1,3 @@
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-    <script type="text/javascript" src="/public/javascript/gmap3/gmap3.js"></script>
-    
     <style>
       .gmap3{
         margin: 20px auto;
@@ -34,6 +31,41 @@
 		width: 30px;
 		padding: 5px 5px 5px 2px;
 	}
+	
+      body{
+        text-align:center;
+      }
+      .gmap3{
+        margin: 20px auto;
+        border: 1px dashed #C0C0C0;
+        width: 1000px;
+        height: 750px;
+      }
+      .cluster{
+  			color: #FFFFFF;
+  			text-align:center;
+  			font-family: 'Arial, Helvetica';
+  			font-size:11px;
+  			font-weight:bold;
+      }
+      .cluster-1{
+        background-image:url(images/m1.png);
+        line-height:53px;
+  			width: 53px;
+  			height: 52px;
+      }
+      .cluster-2{
+        background-image:url(images/m2.png);
+        line-height:53px;
+  			width: 56px;
+  			height: 55px;
+      }
+      .cluster-3{
+        background-image:url(images/m3.png);
+        line-height:66px;
+  			width: 66px;
+  			height: 65px;
+      }	
     </style>
     
 
@@ -125,7 +157,9 @@
 	</div>
 </div>       
 			    
-    <script type="text/javascript">
+<script type="text/javascript">
+    var globalCluster;
+    
       $(function(){
         $('#mapa').gmap3({
           marker:{
@@ -133,12 +167,19 @@
           },
           map:{
             options:{
-              zoom: 10
+              zoom: 10,
+              mapTypeId: google.maps.MapTypeId.TERRAIN
             }
+          },
+          callback: function(map){
+              alert('teste');
           }
         });
       });
 
+
+
+      
       function limpar(){
       	$("#cod_escola").val('');          
       	$("#nom_escola").val('');          
@@ -185,4 +226,4 @@
           	$('#btnmostra').show();
           }    
       }   
-    </script>
+ </script>
