@@ -1,9 +1,188 @@
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script type="text/javascript" src="/public/javascript/gmap3/gmap3.js"></script>
+    
+    <style>
+      .gmap3{
+        margin: 20px auto;
+        border: 1px dashed #C0C0C0;
+        width: 95%;
+        height: 350px;
+      }
+     .botoesfiltrocima {
+		display: inline-block;
+		height: 29px;
+		margin-top: -6px;
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+		border-bottom-left-radius: 20px;
+		margin-right: 10px;
+		float: left;
+		width: 30px;
+		padding: 3px 5px 5px 2px;
+	}
+	.botoesfiltrobaixo {
+		display: inline-block;
+		height: 29px;
+		margin-top: -6px;
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+		border-bottom-left-radius: 20px;
+		margin-right: 10px;
+		float: left;
+		width: 30px;
+		padding: 5px 5px 5px 2px;
+	}
+    </style>
+    
+
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong>Mapa das Escolas</strong></h3>
-  </div>
-  <div class="panel-body" align="center">
-  	<div class="well">Essa funcionalidade se encontra em <strong>construção</strong>, favor voltar mais tarde <strong> :)</strong> </div>
-	<img src="<?= IMAGENS; ?>construcao.png" style="border:0px; width: 640px; height: 400px;">
-  </div>
-</div>
+	<div class="panel-heading">
+		<h3 class="panel-title"><strong>Lista de Escolas</strong></h3>
+  	</div>
+  	<div class="panel-body">
+		<div align="center">
+  		 
+			<div class="panel panel-default" style="width: 99%" align="left">
+				<div class="panel-heading" style="cursor:pointer;" onclick="mostraFiltros();">
+					<h3 class="panel-title"><strong>Filtros</strong>
+						<div style="float:left; margin-top:0px;"> 
+							<button type="submit" title="Ocultar Filtros" id="btnesconde" style="display:none;" class="btn btn-default botoesfiltrocima">
+								&nbsp;<span class="glyphicon glyphicon-chevron-up"></span>&nbsp; 
+							</button>
+							<button type="submit" title="Exibir Filtros" id="btnmostra" class="btn btn-default botoesfiltrobaixo">
+								&nbsp;<span class="glyphicon glyphicon-chevron-down"></span>&nbsp;
+							</button>
+						</div>
+					</h3>
+			  	</div> 
+			  	<div id="divfiltros" class="panel-body" style="display: none;" align="center">
+			  		<!-- INICIO -Formulário de pesquisa -->
+			  		<form action="/escola/lista">
+						<div style="width: 99%;" align="left">
+							<div class="row">
+								<div class="col-xs-3">
+							  		<label for="cod_escola">Código da Escola</label>
+							    	<input type="text" id="cod_escola" name="cod_escola" class="form-control" placeholder="Código da Escola">
+								</div>
+								<div class="col-xs-3">
+							  		<label for="nom_escola">Nome da Escola</label>
+							    	<input type="text" id="nom_escola" name="nom_escola" class="form-control" placeholder="Nome da Escola">
+								</div>
+								<div class="col-xs-3">
+							  		<label for="cod_rede">Rede</label>
+							  		<?php
+							  			echo Util::combo('cod_rede', $vars['dadosRede'], true, "Selecione..."); 
+							  		?>
+								</div>
+							  	<div class="col-xs-3">
+							  		<label for="cod_dependencia">Dependência</label>
+							  		<?php
+							  			echo Util::combo('cod_dependencia', $vars['dadosDependencia'], true, "Selecione..."); 
+							  		?>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-3">
+							  		<label for="cod_regiao">Região</label>
+							  		<?php
+							  			echo Util::combo('cod_regiao', $vars['dadosRegiao'], true, "Selecione...", "carregaEstados(this);"); 
+							  		?>
+								</div>
+								<div class="col-xs-3">
+							  		<label for="cod_estado">Estado</label>
+							  		<div id="divestados">
+							  		<?php
+							  			echo Util::combo('cod_estado', array(), false, "Selecione uma Região", ""); 
+							  		?>
+							  		</div>
+								</div>
+								<div class="col-xs-3">
+							  		<label for="cod_municipio">Município</label>
+							  		<div id="divmunicipios">
+							  		<?php
+							  			echo Util::combo('cod_municipio', array(), false, "Selecione um Estado", ""); 
+							  		?>
+							  		</div>
+								</div>
+							  	<div class="col-xs-3">
+							  		<label for="cod_cat_dependencia">Categoria</label>
+							  		<?php
+							  			echo Util::combo('cod_cat_dependencia', $vars['dadosCategoria'], true, "Selecione..."); 
+							  		?>
+								</div>
+							</div>
+							<br>
+							<button type="button" onclick="filtraGrid()" class="btn btn-default">Filtrar</button>
+							<button type="button" onclick="limpar()" class="btn btn-default">Limpar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		 <div id="mapa" class="gmap3"></div>
+		</div>
+	</div>
+</div>       
+			    
+    <script type="text/javascript">
+      $(function(){
+        $('#mapa').gmap3({
+          marker:{
+            address: "Haltern am See, Weseler Str. 151"
+          },
+          map:{
+            options:{
+              zoom: 10
+            }
+          }
+        });
+      });
+
+      function limpar(){
+      	$("#cod_escola").val('');          
+      	$("#nom_escola").val('');          
+      	$("#cod_rede").val('');            
+      	$("#cod_dependencia").val('');     
+      	$("#cod_regiao").val('');          
+      	$("#cod_estado").val('');          
+      	$("#cod_municipio").val('');       
+      	$("#cod_cat_dependencia").val(''); 
+
+      	carregaEstados('');
+      	filtraGrid();
+      }
+
+      function carregaEstados(regiao){
+      	var cod_regiao = '';
+          if(regiao){
+  	    	cod_regiao = regiao.value;
+          }
+          $('#divestados').load( "/estado/carregaEstados/cod_regiao/" + cod_regiao );
+
+          if(cod_regiao == ''){
+          	carregaMunicipios(null);
+          }
+      }    
+
+      function carregaMunicipios(estado){
+      	var cod_estado = '';
+          if(estado){
+  	        cod_estado = estado.value;
+          }
+              
+          $('#divmunicipios').load( "/municipio/carregaMunicipios/cod_estado/" + cod_estado );
+      }    
+
+      function mostraFiltros(){
+          if($('#divfiltros:visible').length <= 0){
+          	$('#divfiltros').show();
+          	$('#btnesconde').show();
+          	$('#btnmostra').hide();
+          }else{
+          	$('#divfiltros').hide();
+          	$('#btnesconde').hide();
+          	$('#btnmostra').show();
+          }    
+      }   
+    </script>

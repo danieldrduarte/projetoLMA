@@ -4,8 +4,6 @@
         public function ListaAction(){
         	$pesquisa = $_POST;
         
-        	//Util::ver($pesquisa);	
-        
         	$mRede 		= new RedeModel();
         	$dadosRede	= $mRede->getCombo(array());
         	
@@ -85,9 +83,14 @@
         	
         	if($tipo && $tipo == 'endereco'){
         		$dados = $escola->montaGridEndereco($cod_escola);
-        		
         	}elseif(!$tipo || $tipo == 'principal'){
         		$dados = $escola->montaGridPrincipal($cod_escola);
+        	}elseif(!$tipo || $tipo == 'geral'){
+        		$dados = $escola->montaGridGeral($cod_escola);
+        	}elseif(!$tipo || $tipo == 'estrutura'){
+        		$dados = $escola->montaGridEstrutura($cod_escola);
+        	}elseif(!$tipo || $tipo == 'equip'){
+        		$dados = $escola->montaGridEquipamentos($cod_escola);
         	}
         	
         	//se tiver um tipo setado então é uma requisição ajax

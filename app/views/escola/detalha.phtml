@@ -1,3 +1,12 @@
+<style>
+  .gmap3{
+    margin: 5px auto;
+    border: 1px dashed #C0C0C0;
+    width: 90%;
+    height: 350px;
+  }
+</style>
+
 <input type="hidden" id="cod_escola" name="cod_escola" value="<?= $vars['cod_escola']; ?>" />
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -8,6 +17,9 @@
 		   <li><a href="/escola/lista" style="color:#555555;"> <strong>Lista de Escolas</strong></a></li>
 		   <li class="active"><a href="#home" onclick="alteraAba('principal');" style="color:#555555;" data-toggle="tab"><strong>Informações Principais</strong></a></li>
 		   <li><a href="#ios" onclick="alteraAba('endereco');" data-toggle="tab"><strong style="color:#555555;">Endereço</strong></a></li>
+		   <li><a href="#ios" onclick="alteraAba('geral');" data-toggle="tab"><strong style="color:#555555;">Informações Gerais</strong></a></li>
+		   <li><a href="#ios" onclick="alteraAba('estrutura');" data-toggle="tab"><strong style="color:#555555;">Informações Estrutura</strong></a></li>
+		   <li><a href="#ios" onclick="alteraAba('equip');" data-toggle="tab"><strong style="color:#555555;">Equipamentos Disponíveis</strong></a></li>
 		</ul>  	
 		<div id="div-conteudo-aba" align="center" style="border-left: 1px solid #DDDDDD; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD;">
 			<?php echo $vars['dadostela']; ?> 
@@ -20,15 +32,40 @@
 </div>
 <script type="text/javascript">
 
+$(document).ready(function() {
+		  
+	  });
+
+	function geraMapa(){
+		  
+		  $("#mapa").gmap3({
+			  map:{
+			    options:{
+			      center:[$('#longitude').val(),$('#latitude').val()],
+			      zoom: 18
+			    }
+			  },		  
+			  marker:{
+			    values:[
+			      {latLng:[$('#longitude').val(),$('#latitude').val()], data:"Localização da Escola"},
+			    ],
+			    options:{
+			      draggable: false
+			    },
+			  }
+			  
+			});
+	}
+		
 	function alteraAba(tipo){
 		$.ajax({
 			type    : "POST",
-			async   : true,
+			async   : false,
 			url     : '/escola/detalha/tipo/'+ tipo + '/cod_escola/' + $('#cod_escola').val() })
 		 .done(function(result){
 			 $('#div-conteudo-aba').html(result);
 		 });
-
+		geraMapa();
 	}
 		
 </script>
