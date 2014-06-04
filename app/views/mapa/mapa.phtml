@@ -207,32 +207,37 @@
                   cluster:{
                     radius: 70,
                     events:{
-                  	 mouseover: function(cluster, event){
-                  	   $(cluster.main.getDOMElement()).css('border', '1px solid #FF0000');
-                  	 },
-                  	 mouseout: function(cluster, event){
-                  	   $(cluster.main.getDOMElement()).css('border', '0px');
-                  	 }
+                        click: function(overlay, event, context) {
+                            var map = overlay.main.map;
+                            var data = context.data;
+                            map.panTo(data.latLng);
+                            map.setZoom(map.getZoom() + 1);
+                     	},
+	                  	 mouseover: function(cluster, event){
+	                  	   $(cluster.main.getDOMElement()).css('border', '1px solid #FF0000');
+	                  	 },
+	                  	 mouseout: function(cluster, event){
+	                  	   $(cluster.main.getDOMElement()).css('border', '0px');
+	                  	 }
                   	},
-                		// This style will be used for clusters with more than 0 markers
-                		0: {
-                		  content: '<div class="cluster cluster-1">CLUSTER_COUNT</div>',
-                			width: 53,
-                			height: 52
-                		},
-                		// This style will be used for clusters with more than 20 markers
-                		20: {
-                		  content: '<div class="cluster cluster-2">CLUSTER_COUNT</div>',
-                			width: 56,
-                			height: 55
-                		},
-                		// This style will be used for clusters with more than 50 markers
-                		50: {
-                		    content: '<div class="cluster cluster-3">CLUSTER_COUNT</div>',
-                			width: 66,
-                			height: 65
-                		}
-                	},
+					// This style will be used for clusters with more than 0 markers
+					0: {
+					  content: '<div class="cluster cluster-1">CLUSTER_COUNT</div>',
+						width: 53,
+						height: 52
+					},
+					// This style will be used for clusters with more than 20 markers
+					20: {
+					  content: '<div class="cluster cluster-2">CLUSTER_COUNT</div>',
+						width: 56,
+						height: 55
+					},
+					// This style will be used for clusters with more than 50 markers
+					50: {
+					    content: '<div class="cluster cluster-3">CLUSTER_COUNT</div>',
+						width: 66,
+						height: 65
+					}},
                 	events:{
 	                	click: function(marker, event, context){
 		                	console.log(marker);
@@ -242,13 +247,13 @@
 	                          infowindow = $(this).gmap3({get:{name:"infowindow"}});
 	                        if (infowindow){
 	                          infowindow.open(map, marker);
-	                          infowindow.setContent("<a href='javascript:exibirDetalhes(\"" + context.data + "\")'>Visualizar Informações da escola</a>");
+	                          infowindow.setContent("<img src='<?= IMAGENS; ?>iconelupa2.png' title='Clique aqui para visualizar as informações da escola' onclick='exibirDetalhes(\"" + context.data + "\")' style='border:0px; width:20px; heigth:20px; cursor:pointer;')'><strong onclick='exibirDetalhes(\"" + context.data + "\")' style='cursor:pointer'>&nbsp;Visualizar Informações da escola</strong>");
 	                        } else {
 	                          $(this).gmap3({
 	                            infowindow:
 	                            {
 	                              anchor:marker,
-	                              options:{content: "<a href='javascript:exibirDetalhes(\"" + context.data + "\")'>Visualizar Informações da escola</a>"}
+	                              options:{content: "<img src='<?= IMAGENS; ?>iconelupa2.png' title='Clique aqui para visualizar as informações da escola' onclick='exibirDetalhes(\"" + context.data + "\")' style='border:0px; width:20px; heigth:20px; cursor:pointer;')'><strong onclick='exibirDetalhes(\"" + context.data + "\")' style='cursor:pointer'>&nbsp;Visualizar Informações da escola</strong>"}
 	                            }
 	                          });
 	                        }
