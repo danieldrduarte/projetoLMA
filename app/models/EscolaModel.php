@@ -19,6 +19,23 @@ class EscolaModel extends Model{
 		
 		return ($this->carregar($sql));
 	}
+    
+	public function getCoordenadasEscolas($where = array()){
+		
+		$where[] = " num_latitude != '' AND num_longitude != '' ";
+		
+		$sql = "SELECT DISTINCT 
+					num_latitude::float AS lng,
+					num_longitude::float AS lat,
+					cod_escola as data,
+					nom_escola
+				FROM 
+					escola.vw_lista_escolas
+				WHERE
+					" . implode(" AND ", $where) .";";
+		
+		return ($this->carregar($sql));
+	}
 
 	public function getDadosEscola($cod_escola){
 		
