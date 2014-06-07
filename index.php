@@ -11,6 +11,9 @@
     require_once('system/Controller.php');
     require_once('system/Model.php');
     require_once('system/Util.php');
+
+    //Carregando a classe de listas da escola
+    require_once('app/views/escola/Listas.php');
     
     //autoload para carregar as modelos
     function __autoload( $file ){
