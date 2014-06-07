@@ -25,8 +25,8 @@ class EscolaModel extends Model{
 		$where[] = " num_latitude != '' AND num_longitude != '' ";
 		
 		$sql = "SELECT DISTINCT 
-					num_latitude::float AS lng,
-					num_longitude::float AS lat,
+					num_latitude::float AS lat,
+					num_longitude::float AS lng,
 					cod_escola as data,
 					nom_escola
 				FROM 

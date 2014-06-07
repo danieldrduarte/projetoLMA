@@ -41,14 +41,14 @@ $(document).ready(function() {
 		  $("#mapa").gmap3({
 			  map:{
 			    options:{
-			      center:[$('#longitude').val(),$('#latitude').val()],
+			      center:[$('#latitude').val(),$('#longitude').val()],
 			      zoom: 15,
 			      mapTypeId: google.maps.MapTypeId.ROADMAP
 			    }
 			  },		  
 			  marker:{
 			    values:[
-			      {latLng:[$('#longitude').val(),$('#latitude').val()], data:"Localização da Escola"},
+			      {latLng:[$('#latitude').val(),$('#longitude').val()], data:"Localização da Escola"},
 			    ],
 			    options:{
 			      draggable: false
